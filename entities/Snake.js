@@ -2,7 +2,7 @@ export default class Snake {
 
     constructor(){
         this.body = []
-        this.length = 10
+        this.length = 5
     }
 
     head(){
@@ -50,13 +50,18 @@ export default class Snake {
         this.body.pop()
     }
 
+    eat(){
+        let last = this.body[this.body.length-1]
+        this.body.push([last[0], last[1]-1])
+    }
+
     toString(){
         let head = this.head()
         const snake = {
             head: head,
             body: this.body
         }
-        return snake.toString()
+        return snake
     }
 
 }

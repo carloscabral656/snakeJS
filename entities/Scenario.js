@@ -1,3 +1,5 @@
+import Apple from "./Apple.js"
+
 export default class Scenario {
     
     constructor(width, height, window){
@@ -7,6 +9,7 @@ export default class Scenario {
         this.constructScenarioStruct();
         this.window = window
         this.snake
+        this.apple = new Apple()
         this.callbacksListeners = (event) => this.handleKeys(event)
     }
 
@@ -31,6 +34,13 @@ export default class Scenario {
         scenario.append(this.struct)
     }
 
+    cleanMap(){
+        let snake = this.window.document.getElementsByClassName('snake')
+        for(let i = 0; i < snake.length ; i++){
+            snake[i].classList.remove('snake')
+        }
+    }
+
     createListeners(){
         this.window.document.addEventListener("keydown", this.callbacksListeners, false)
     }
@@ -49,6 +59,8 @@ export default class Scenario {
             this.snake.down()
             this.renderSnake()
         }
+        this.heatApple()
+        console.log(this.snake.toString())
     }
 
     setSnake(snake){
@@ -60,21 +72,40 @@ export default class Scenario {
         let body = [...this.snake.body]
         let head = [...this.snake.head()]
         body.unshift(head)
-        body.forEach(s => {
-            const e = this.window.document.getElementById(s.toString())
-            e.classList.add('snake')
+        body.forEach(b => {
+            const s = this.window.document.getElementById(b.toString())
+            s.classList.add('snake')
         });
     }
 
-    cleanMap(){
-        let snake = this.window.document.getElementsByClassName('snake')
-        for(let i = 0; i < snake.length ; i++){
-            console.log(snake[i].classList.remove('snake'))
+    heatApple(){
+        if(
+            this.snake.head()[0] === this.apple.position[0] &&
+            this.snake.head()[1] === this.apple.position[1]
+        ) {
+            this.cleanApple()
+            this.snake.eat()
+            this.renderSnake()
+            this.spawApple()
         }
+    }
+
+    cleanApple(){
+        this.window.document.getElementsByClassName('apple')[0].classList.remove('apple')
     }
 
     spawSnake(){
         this.snake.init(this)
+    }
+
+    spawApple(){
+        this.apple.setPosition(this)
+        this.renderApple()
+    }
+
+    renderApple(){
+        const apple = this.window.document.getElementById(this.apple.position.toString())
+        apple.classList.add('apple')
     }
      
 }
