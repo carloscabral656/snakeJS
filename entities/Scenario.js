@@ -3,10 +3,11 @@ import Apple from "./Apple.js"
 export default class Scenario {
     
     constructor(width, height, window){
-        this.width  = width;
-        this.height = height;
-        this.struct = null;
-        this.constructScenarioStruct();
+        this.width  = width
+        this.height = height
+        this.struct = null
+        this.bounderies = []
+        this.constructScenarioStruct()
         this.window = window
         this.snake
         this.apple = new Apple()
@@ -32,6 +33,30 @@ export default class Scenario {
     renderScenario(){
         const scenario = this.window.document.getElementById("scenario")
         scenario.append(this.struct)
+    }
+    
+    createBoundaries(){
+        for(let line = 0 ; line < this.height; line++){
+            for(let column = 0 ; column < this.width; column++){
+               if(
+                    column == 0 || 
+                    line   == 0 ||
+                    column == (this.width -1) || 
+                    line == (this.height -1) 
+                ){
+                let e = this.window.document.getElementById(`${column},${line}`)
+                e.classList.add('bound')
+                this.bounderies.push([column, line])
+               }
+            }
+        }
+    }
+
+    heatBound(){
+        let [x, y] = this.snake.head()
+        return (this.bounderies.some(function(b){
+            return ( (b[0]==x) && (b[1]==y))
+        }))
     }
 
     cleanMap(){
@@ -60,7 +85,10 @@ export default class Scenario {
             this.renderSnake()
         }
         this.heatApple()
-        console.log(this.snake.toString())
+        if(this.heatBound()){
+            alert("Game Over!!")
+            this.window.location.reload()
+        }
     }
 
     setSnake(snake){
