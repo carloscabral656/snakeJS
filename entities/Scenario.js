@@ -59,11 +59,19 @@ export default class Scenario {
         }))
     }
 
-    cleanMap(){
-        let snake = this.window.document.getElementsByClassName('snake')
-        for(let i = 0; i < snake.length ; i++){
-            snake[i].classList.remove('snake')
-        }
+    cleanSnake(){
+        this.snake.body.forEach((b) => {
+            let s = this.window.document.getElementById(b.toString())
+            s.classList.remove("snake")
+            console.log(s)
+        })
+    }
+
+    renderSnake(){
+        this.snake.body.forEach(b => {
+            let s = this.window.document.getElementById(b.toString())
+            s.classList.add('snake')
+        });
     }
 
     createListeners(){
@@ -71,19 +79,17 @@ export default class Scenario {
     }
 
     handleKeys(event){
-        if(event.keyCode == 39){ // To Rigth
+        this.cleanSnake()
+        if(event.keyCode == 39){
             this.snake.right()
-            this.renderSnake()
         } else if(event.keyCode == 38){
             this.snake.up()
-            this.renderSnake()
         } else if(event.keyCode == 37){
             this.snake.left()
-            this.renderSnake()
         } else if(event.keyCode == 40){
             this.snake.down()
-            this.renderSnake()
         }
+        this.renderSnake()
         this.heatApple()
         if(this.heatBound()){
             alert("Game Over!!")
@@ -93,17 +99,6 @@ export default class Scenario {
 
     setSnake(snake){
         this.snake = snake
-    }
-
-    renderSnake(){
-        this.cleanMap()
-        let body = [...this.snake.body]
-        let head = [...this.snake.head()]
-        body.unshift(head)
-        body.forEach(b => {
-            const s = this.window.document.getElementById(b.toString())
-            s.classList.add('snake')
-        });
     }
 
     heatApple(){
@@ -124,6 +119,7 @@ export default class Scenario {
 
     spawSnake(){
         this.snake.init(this)
+        this.renderSnake()
     }
 
     spawApple(){
