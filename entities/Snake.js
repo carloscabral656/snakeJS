@@ -4,6 +4,7 @@ export default class Snake {
         this.body = []
         this.length = 5
         this.alive = true
+        this.velocity = 700
     }
 
     head(){
@@ -58,12 +59,36 @@ export default class Snake {
         })
     }
 
+    direction(){
+        let head = this.head()
+        let second = this.body[1]
+        if(
+            head[0] === second[0] &&   // x == x
+            (head[1]+1) === second[1]  // y-1 == y
+        ){
+            
+            return "up"
+        } else if(
+            (head[0]+1) === second[0] &&   // x == x
+            head[1] === second[1]      // y-1 == y
+        ) {
+            return "left"
+        } else if(
+            (head[0]-1) === second[0] &&   // x == x
+            head[1] === second[1]      // y-1 == y
+        ) {
+            return "right"
+        } else if (
+            head[0] === second[0] &&   // x == x
+            (head[1]-1) === second[1]  // y-1 == y
+        ){
+            return "down"
+        }
+    }
+
     up(){
         let currenthead = this.head()
         let nextHead = [currenthead[0], currenthead[1]-1]
-        console.log(this.blockReverseMovement(nextHead))
-        console.log(nextHead)
-        console.log(this.head())
         if(this.blockReverseMovement(nextHead)) return;
         if(!this.headHeatBody(nextHead)){
             this.body.unshift(nextHead)
@@ -112,6 +137,11 @@ export default class Snake {
     eat(){
         let last = this.body[this.body.length-1]
         this.body.push([last[0], last[1]-1])
+        this.velocity += 50
+    }
+
+    crawl(){
+        this.body.push([last[0], last[1]-1])
     }
 
     die(){
@@ -119,8 +149,6 @@ export default class Snake {
     }
     
     isAlive() { return this.alive === true }
-        
-    
 
     toString(){
         let head = this.head()

@@ -79,7 +79,6 @@ export default class Scenario {
     }
 
     handleKeys(event){
-        
         this.cleanSnake()
         if(event.keyCode == 39){
             this.snake.right()
@@ -95,7 +94,6 @@ export default class Scenario {
         if(this.heatBound()){
             this.snake.die()
         }
-
         if(!this.snake.isAlive()){   
             alert("Game Over!!")
             this.window.location.reload()
@@ -137,4 +135,30 @@ export default class Scenario {
         apple.classList.add('apple')
     }
      
+    createCrawl(){
+        this.window.setInterval(() => {
+            let d = this.snake.direction()
+            if(d === 'up'){
+                this.cleanSnake()
+                this.snake.up()
+                this.renderSnake()
+                console.log(this.snake.toString())
+            } else if(d === 'left'){
+                this.cleanSnake()
+                this.snake.left()
+                this.renderSnake()
+                console.log(this.snake.toString())
+            } else if(d === 'right'){
+                this.cleanSnake()
+                this.snake.right()
+                this.renderSnake()
+                console.log(this.snake.toString())
+            } else if(d === 'down'){
+                this.cleanSnake()
+                this.snake.down()
+                this.renderSnake()
+                console.log(this.snake.toString())
+            }
+        }, this.snake.velocity)
+    }
 }
