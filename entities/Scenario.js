@@ -79,6 +79,7 @@ export default class Scenario {
     }
 
     handleKeys(event){
+        
         this.cleanSnake()
         if(event.keyCode == 39){
             this.snake.right()
@@ -92,6 +93,10 @@ export default class Scenario {
         this.renderSnake()
         this.heatApple()
         if(this.heatBound()){
+            this.snake.die()
+        }
+
+        if(!this.snake.isAlive()){   
             alert("Game Over!!")
             this.window.location.reload()
         }
