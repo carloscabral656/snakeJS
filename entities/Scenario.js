@@ -63,7 +63,6 @@ export default class Scenario {
         this.snake.body.forEach((b) => {
             let s = this.window.document.getElementById(b.toString())
             s.classList.remove("snake")
-            console.log(s)
         })
     }
 
