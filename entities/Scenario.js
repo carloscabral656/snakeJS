@@ -7,6 +7,7 @@ export default class Scenario {
         this.height = height
         this.struct = null
         this.bounderies = []
+        this.availableScenario = []
         this.constructScenarioStruct()
         this.window = window
         this.snake
@@ -164,5 +165,18 @@ export default class Scenario {
                 this.window.location.reload()
             }
         }, 100)
+    }
+
+    createAvailableScenario(){
+        this.bounderies.forEach((b) => {
+            this.struct.forEach((s) => {
+                if(
+                    s[0] === b[0] &&
+                    s[1] === b[1]
+                ){
+                    console.log(s, b)
+                }
+            })
+        })
     }
 }
