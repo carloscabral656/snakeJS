@@ -168,15 +168,15 @@ export default class Scenario {
     }
 
     createAvailableScenario(){
-        this.bounderies.forEach((b) => {
-            this.struct.forEach((s) => {
+        for(const b of this.bounderies){
+            for(const s of this.struct){
                 if(
-                    s[0] === b[0] &&
-                    s[1] === b[1]
+                    b[0] == s[0] &&
+                    b[1] == s[1]
                 ){
-                    console.log(s, b)
+                    console.log(b, s)
                 }
-            })
-        })
+            }
+        }
     }
 }
