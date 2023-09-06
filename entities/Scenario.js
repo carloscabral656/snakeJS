@@ -5,10 +5,10 @@ export default class Scenario {
     constructor(width, height, window){
         this.width  = width
         this.height = height
-        this.struct = null
+        this.struct = []
+        this.scenario = null
         this.bounderies = []
-        this.availableScenario = []
-        this.constructScenarioStruct()
+        this.availableScenarioApple = []
         this.window = window
         this.snake
         this.apple = new Apple()
@@ -25,15 +25,16 @@ export default class Scenario {
                 let column = document.createElement('td')
                 column.setAttribute("id",`${columns},${lines}`)
                 line.append(column)
+                this.struct.push([columns, lines])
             }
             scenario.append(line)
         }
-        this.struct = scenario
+        this.scenario = scenario
     }   
     
     renderScenario(){
         const scenario = this.window.document.getElementById("scenario")
-        scenario.append(this.struct)
+        scenario.append(this.scenario)
     }
     
     createBoundaries(){
@@ -126,7 +127,8 @@ export default class Scenario {
     }
 
     spawApple(){
-        this.apple.setPosition(this)
+        let position = this.generatePositionApple()
+        this.apple.setPosition(position)
         this.renderApple()
     }
 
@@ -167,16 +169,23 @@ export default class Scenario {
         }, 100)
     }
 
-    createAvailableScenario(){
+    createAvailableScenarioApple(){
         for(const b of this.bounderies){
             for(const s of this.struct){
                 if(
-                    b[0] == s[0] &&
-                    b[1] == s[1]
+                    !(
+                        b[0] == s[0] &&
+                        b[1] == s[1]
+                    )
                 ){
-                    console.log(b, s)
+                    this.availableScenarioApple.push([s[0], s[1]])
                 }
             }
         }
+    }
+
+    generatePositionApple(){
+        let i = Math.floor(Math.random() * (this.availableScenarioApple.length-1))
+        return this.availableScenarioApple[i]
     }
 }
