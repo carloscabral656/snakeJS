@@ -45,10 +45,11 @@ export default class Scenario {
                     line   == 0 ||
                     column == (this.width -1) || 
                     line == (this.height -1) 
-                ){
-                let e = this.window.document.getElementById(`${column},${line}`)
-                e.classList.add('bound')
-                this.bounderies.push([column, line])
+                )
+                {
+                    let e = this.window.document.getElementById(`${column},${line}`)
+                    e.classList.add('bound')
+                    this.bounderies.push([column, line])
                }
             }
         }
@@ -128,6 +129,7 @@ export default class Scenario {
 
     spawApple(){
         let position = this.generatePositionApple()
+        console.log(position.toString())
         this.apple.setPosition(position)
         this.renderApple()
     }
@@ -170,18 +172,21 @@ export default class Scenario {
     }
 
     createAvailableScenarioApple(){
-        for(const b of this.bounderies){
-            for(const s of this.struct){
-                if(
-                    !(
-                        b[0] == s[0] &&
-                        b[1] == s[1]
+        console.log(this.struct[0])
+        console.log(this.struct.includes([0, 0]))
+        let availableScenario = this.struct.filter(
+            s => {
+                // Only if the bounderie is not in struct
+                // 's' is like this -> [0, 0]
+                return !this.bounderies.some((b) => {
+                    return (
+                        s[0] === b[0] &&
+                        s[1] === b[1]
                     )
-                ){
-                    this.availableScenarioApple.push([s[0], s[1]])
-                }
+                })
             }
-        }
+        )
+        this.availableScenarioApple = availableScenario
     }
 
     generatePositionApple(){
