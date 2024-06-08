@@ -11,14 +11,14 @@ export default class Snake {
         return this.body[0]
     }
 
-    generateHed(scenario){
+    generateHead(scenario){
         const x = Math.floor(Math.random() *  scenario.width)
         const y = Math.floor(Math.random() *  scenario.height)
         return [x, y]
     }
 
     init(scenario) {
-        let [x, y] = this.generateHed(scenario)
+        let [x, y] = this.generateHead(scenario)
         this.body.push([x, y])
         this.createBody()
     }
