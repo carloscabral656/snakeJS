@@ -1,28 +1,93 @@
-table {
-    margin: auto;
-    border-collapse: collapse;
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --main-color: #8b966e;
+  --b1: #5b6148;
+  --b2: #adb890;
+  --b3: #8b966e;
+  --b4: #adb88e;
+  --b5: #c4d0a3;
+
+  --snake: #3d4230;
 }
 
-td, tr {
-    width: 5px;
-    height: 5px;
+html {
+  font-family: "Press Start 2P", system-ui;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+}
+
+.container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container_scenario {
+  outline: 7px solid var(--b1);
+  border: 4px solid var(--b2);
+  border-radius: 7px;
+  padding: 15px;
+  background-color: var(--b3);
+}
+
+.container_infos {
+  display: flex;
+}
+
+.container_info {
+  flex-grow: 1;
+}
+
+.main_scenario {
+  border: 5px solid var(--b1);
+  border-radius: 7px;
+}
+
+table {
+  margin: auto;
+  border-collapse: collapse;
+}
+
+td,
+tr {
+  width: 8px;
+  height: 8px;
 }
 
 td {
-    border: 1px solid rgb(203, 203, 203);
-    background-color: rgb(203, 203, 203);
-    margin: 0;
+  border: 2px solid var(--b4);
+  background-color: var(--b5);
+  margin: 0;
 }
 
-.snake{
-    background-color: rgb(0, 63, 235);
-    border: 1px solid black;
+.scenario_cell {
+  width: 80%;
+  height: 80%;
+  background-color: var(--snake);
 }
 
-.apple{
-    background-color: blueviolet;
+.snake {
+  background-color: var(--snake);
+  border: 1px solid black;
 }
 
-.bound{
-    background-color: black;
+.apple {
+  background-color: red;
+}
+
+.bound {
+  background-color: black;
 }
